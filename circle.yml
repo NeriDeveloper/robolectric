@@ -23,7 +23,9 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}
       - run:
           name: Run Tests
-          command: ./gradlew clean test --info --stacktrace
+          command: |
+            ./gradlew clean assemble compileTest --info --stacktrace
+            NO_REBUILD=true ./gradlew test --no-rebuild --continue --info --stacktrace
       - run:
           name: Save test results
           command: |
