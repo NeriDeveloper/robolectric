@@ -12,10 +12,12 @@ jobs:
           name: Install Maven
           command: sudo apt-get update; sudo apt-get install maven
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}
+          key: jars-{{ checksum "circle.yml" }}-{{ checksum "build.gradle" }}
       - run:
           name: Download Dependencies
-          command: ./scripts/install-dependencies.rb
+          command: |
+            ./scripts/install-dependencies.rb
+            ./gradlew dependencies
       - save_cache:
           paths:
             - ~/.gradle
