@@ -22,10 +22,14 @@ jobs:
             - ~/.m2
           key: jars-{{ checksum "build.gradle" }}
       - run:
-          name: Run Tests
-          command: |
-            ./gradlew clean assemble compileTest --info --stacktrace
-            NO_REBUILD=true ./gradlew test --no-rebuild --continue --info --stacktrace
+          name: Build
+          command: ./gradlew clean assemble compileTest --info --stacktrace
+      - run:
+          name: Run Tests 1/2
+          command: NO_REBUILD=true ./gradlew test --no-rebuild --continue --info --stacktrace -Drobolectric.enabledSdks=16,17,18,19,21
+      - run:
+          name: Run Tests 2/2
+          command: NO_REBUILD=true ./gradlew test --no-rebuild --continue --info --stacktrace -Drobolectric.enabledSdks=22,23,24,25,26
       - run:
           name: Save test results
           command: |
