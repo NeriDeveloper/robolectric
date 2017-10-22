@@ -21,7 +21,7 @@ jobs:
           name: Download Dependencies
           command: |
             ./scripts/install-dependencies.rb
-            ./gradlew dependencies prefetchSdks
+            ./gradlew prefetchDependencies
       - save_cache:
           paths:
             - ~/.gradle
